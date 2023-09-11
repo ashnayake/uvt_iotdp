@@ -4,12 +4,12 @@ import time as t
 import json
 import threading
 
-ENDPOINT = "xxxxxxxxxxxxxxxxxxxxxxxxx"
-CLIENT_ID = "xxxx"
-PATH_TO_CERTIFICATE = "xxxx.cert.pem"
-PATH_TO_PRIVATE_KEY = "xxxx.private.key"
-PATH_TO_AMAZON_ROOT_CA_1 = "root-CA.crt"
-topic = "xxxx/xxxx"
+ENDPOINT = ""
+CLIENT_ID = "alarm1"
+PATH_TO_CERTIFICATE = ""
+PATH_TO_PRIVATE_KEY = ""
+PATH_TO_AMAZON_ROOT_CA_1 = ""
+topic = "alarm/alarm1"
 
 # Spin up resources
 event_loop_group = io.EventLoopGroup(1)

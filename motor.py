@@ -1,23 +1,17 @@
-from datetime import datetime
-import random
 from awscrt import io, mqtt, auth, http
 from awsiot import mqtt_connection_builder
 import time as t
 import json
+import threading
 
-def temp_gen():
-    now=datetime.now()
-    curr_time=now.strftime("%H:%M:%S")
-    return (30+random.randint(-10,10),curr_time)
-
-
-ENDPOINT = "" #broker url
-CLIENT_ID = "therm1"
+ENDPOINT = ""
+CLIENT_ID = "motor1"
 PATH_TO_CERTIFICATE = ""
 PATH_TO_PRIVATE_KEY = ""
 PATH_TO_AMAZON_ROOT_CA_1 = ""
-TOPIC = "temp/therm1"#topic
-#coonection to awsiot mqtt server
+topic = "motor/motor1"
+
+# Spin up resources
 event_loop_group = io.EventLoopGroup(1)
 host_resolver = io.DefaultHostResolver(event_loop_group)
 client_bootstrap = io.ClientBootstrap(event_loop_group, host_resolver)
@@ -31,29 +25,24 @@ mqtt_connection = mqtt_connection_builder.mtls_from_path(
             clean_session=False,
             keep_alive_secs=6
             )
-
 print("Connecting to {} with client ID '{}'...".format(
         ENDPOINT, CLIENT_ID))
 
 connect_future = mqtt_connection.connect()
+
 connect_future.result()
 print("Connected!")
 
-def pub_temp(t):
-    message = {"temp":t[0],"time" : t[1]}
-    mqtt_connection.publish(
-        topic=TOPIC, 
-        payload=json.dumps(message), 
-        qos=mqtt.QoS.AT_LEAST_ONCE)
-    print("Published: '" + json.dumps(message) + "' to the topic: " + "'temp/therm1'")
+def on_message_received(topic, payload, dup, qos, retain):
+    print(payload)
     
-def run():
-    print('Begin Publish')
-    while True:
-        pub_temp(temp_gen())
-        t.sleep(2)
-    print('Publish End')
-    disconnect_future = mqtt_connection.disconnect()
-    disconnect_future.result()
-    
-run()
+subscribe_future, packet_id = mqtt_connection.subscribe(
+    topic=topic,
+    qos=mqtt.QoS.AT_LEAST_ONCE,
+    callback=on_message_received
+)
+
+subscribe_result = subscribe_future.result()
+print(f'Subscribed to {topic}')
+
+threading.Event().wait()
