@@ -5,8 +5,8 @@ wlan=network.WLAN(network.STA_IF)
 try:
     print('ESP_32 WiFi program')
     wlan.active(True)
-    ssid='ahalakanda_1'
-    psk='ak5981175'
+    ssid='xxxxxx'
+    psk='xxxxx'
     wlan.connect(ssid,psk)
     while not wlan.isconnected():
         machine.idle()
