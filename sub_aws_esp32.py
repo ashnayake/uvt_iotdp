@@ -7,11 +7,11 @@ import esp32
 import ntptime
 
 #mqtt broker
-aws_broker=b"a2bftfnjlc07q-ats.iot.us-east-1.amazonaws.com"
-clientid='alarm1'
-private_key='alarm1.private.key'
-private_cert='alarm1.cert.pem'
-sub_topic='alarm/alarm1'
+aws_broker=b""
+clientid=''
+private_key=''
+private_cert=''
+sub_topic=''
 key=None
 cert=None
 
