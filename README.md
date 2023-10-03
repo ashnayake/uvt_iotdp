@@ -9,3 +9,5 @@
     - publish to alarm topic
     - subcribe temperature topic
     - update monogodb
+  - [2.2 temp.py]
+    - publish temperature to temp topic
