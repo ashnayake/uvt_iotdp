@@ -1,4 +1,11 @@
 # uvt_iotdp
-- this repo contains the initial code for your assignment.
-- it is far from complete and you will need to work on it
-- other additional code will be updated in due time
+- [1.Introduction]
+  - this repo contains the initial code for your assignment.
+  - it is far from complete and you will need to work on it
+  - other additional code will be updated in due time
+- [2. Files]
+  - [2.1 app.py]
+    - subscribes to AWS iot core broker
+    - publish to alarm topic
+    - subcribe temperature topic
+    - update monogodb
